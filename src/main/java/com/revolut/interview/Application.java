@@ -94,7 +94,7 @@ public class Application extends Jooby {
              * Transfer money form one account to another
              *
              * @param id accountId
-             * @param body tansfer request
+             * @param body transfer request
              * @return Returns a modified account or <code>400</code> in case of validation error.
              */
             post("/:id/transfer", req -> {

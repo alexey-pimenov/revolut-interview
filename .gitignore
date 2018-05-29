@@ -11,6 +11,7 @@
 *.ipr
 *.iws
 *.iml
+/out/
 
 
 !gradle/wrapper/gradle-wrapper.jar
