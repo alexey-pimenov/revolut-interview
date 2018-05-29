@@ -1,5 +1,6 @@
 package com.revolut.interview.repository;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.revolut.interview.model.Account;
 
 import javax.inject.Singleton;
@@ -30,5 +31,11 @@ public class AccountRepository {
 
     public Collection<Account> getAll() {
         return Collections.unmodifiableCollection(accounts.values());
+    }
+
+
+    @VisibleForTesting
+    public void clear(){
+        accounts.clear();
     }
 }
