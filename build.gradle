@@ -1,0 +1,64 @@
+buildscript {
+    ext {
+        joobyVersion = "1.3.0"
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jooby:jooby-gradle-plugin:$joobyVersion"
+    }
+}
+plugins {
+    id 'java'
+    id 'idea'
+    id 'application'
+    id "io.spring.dependency-management" version "1.0.5.RELEASE"
+    id "com.github.johnrengelman.shadow" version "2.0.3"
+
+}
+apply plugin: "jooby"
+
+mainClassName = 'com.revolut.interview.Application'
+
+ext {
+    slf4jVersion = "1.7.25"
+    lombokVersion = "1.16.20"
+    mapStructVersion = "1.2.0.Final"
+}
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.jooby:jooby-bom:$joobyVersion"
+    }
+}
+
+dependencies {
+    implementation 'com.google.guava:guava:23.0'
+    implementation 'org.jooby:jooby-undertow'
+    implementation 'org.jooby:jooby-jackson'
+    implementation 'org.jooby:jooby-apitool'
+    implementation "org.mapstruct:mapstruct-jdk8:$mapStructVersion"
+
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.10.0'
+
+}
+
+shadowJar.dependsOn(joobySpec)
+
+
